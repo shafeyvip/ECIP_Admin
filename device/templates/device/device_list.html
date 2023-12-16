@@ -9,25 +9,30 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Device List</h1>
+            <h1> </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Device List</li>
+              <li class="breadcrumb-item active">Devices List</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
+    <section class="content">
+        <!-- /.row -->
+      <div class="row">
+
+          <div class="col-12">
+            <!-- Main content -->
     <section class="content">
 
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Device List</h3>
+          <h3 class="card-title">{{devices|length}} + Devices Available </h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -38,17 +43,157 @@
             </button>
           </div>
         </div>
-        <div class="card-body">
-         Device List
+        <div class="card-body p-0">
+          <table class="table table-striped projects">
+              <thead>
+                  <tr>
+                      <th style="width: 1%">
+                          #
+                      </th>
+                      <th style="width: 2%">
+                          Code
+                      </th>
+                      <th style="width: 2%">
+                          Type
+                      </th>
+                      <th style="width: 10%">
+                          Name
+                      </th>
+                      <th style="width: 10%">
+                          Motherboard
+                      </th>
+                      <th style="width: 10%">
+                          CPU
+                      </th>
+                      <th style="width: 5%">
+                          RAM
+                      </th>
+                      <th style="width: 5%">
+                          HDD
+                      </th>
+                      <th style="width: 5%">
+                          Status
+                      </th>
+                      <th style="width: 5%">
+                          Sites
+                      </th>
+                      <th style="width: 5%">
+                          Price
+                      </th>
+                      <th style="width: 5%">
+                          Other
+                      </th>
+                      <th style="width: 20%">
+                      </th>
+                  </tr>
+              </thead>
+              {% for device in devices %}
+              <tbody>
+                  <tr>
+                      <td>
+                          #
+                      </td>
+                      <td>
+                          <a>
+                              {{device.device_code}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{device.device_type}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{device.model_name}}
+                          </a>
+                          <br/>
+                          <small>
+                              {{device.date|date:'d M o'}}
+                          </small>
+                      </td>
+                      <td>
+                          <a>
+                              {{device.motherboard}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{device.cpu}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{device.ram}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{device.hdd}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{device.status}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{device.sites}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{device.price}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{device.other}}
+                          </a>
+                          <br/>
+                      </td>
+
+                      <td class="project-actions text-right">
+                          <a class="btn btn-primary btn-sm" href="{% url 'devices:device_detail' device.id %}">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                          </a>
+                          <a class="btn btn-info btn-sm" href="#">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="#">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
+                      </td>
+                  </tr>
+
+              </tbody>
+              {% endfor %}
+          </table>
         </div>
         <!-- /.card-body -->
-        <div class="card-footer">
-          PY77
-        </div>
-        <!-- /.card-footer-->
       </div>
       <!-- /.card -->
 
+    </section>
+            <!-- /.card -->
+          </div>
+        </div>
     </section>
     <!-- /.content -->
   </div>

@@ -14,7 +14,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Device Detail</li>
+              <li class="breadcrumb-item active">Device</li>
             </ol>
           </div>
         </div>
@@ -27,7 +27,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Device Detail</h3>
+          <label for="inputName" class="col-sm-2 col-form-label">{{device.model_name}}</label>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -39,13 +39,41 @@
           </div>
         </div>
         <div class="card-body">
-         Device informations
+           <label for="inputName" class="col-sm-2 col-form-label">Code:</label>{{device.device_code}}
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          PY77
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">Type:</label>{{device.device_type}}
         </div>
-        <!-- /.card-footer-->
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">Name:</label>{{device.model_name}}
+        </div>
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">Motherboard:</label>{{device.motherboard}}
+        </div>
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">CPU:</label>{{device.cpu}}
+        </div>
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">RAM:</label>{{device.ram}}
+        </div>
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">HDD:</label>{{device.hdd}}
+        </div>
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">Created at:</label>{{device.date}}
+        </div>
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">Status:</label>{{device.status}}
+        </div>
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">Sites:</label>{{device.sites}}
+        </div>
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">Price:</label>{{device.price}}
+        </div>
+        <div class="card-body">
+           <label for="inputName" class="col-sm-2 col-form-label">Other</label>{{device.model_name}}
+        </div>
       </div>
       <!-- /.card -->
 

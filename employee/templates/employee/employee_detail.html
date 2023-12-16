@@ -27,7 +27,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Employee Detail</h3>
+          <label for="inputName" class="col-sm-2 col-form-label">{{emplyee.employee_name}}</label>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -39,11 +39,31 @@
           </div>
         </div>
         <div class="card-body">
-         Employee informations
+          <label for="inputName" class="col-sm-2 col-form-label">ID:</label>{{emplyee.employee_code}}
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          PY77
+        <div class="card-body">
+          <label for="inputName" class="col-sm-2 col-form-label">Name:</label>{{emplyee.employee_name}}
+        </div>
+        <div class="card-body">
+          <label for="inputName" class="col-sm-2 col-form-label">National ID:</label>{{emplyee.employee_national_id}}
+        </div>
+        <div class="card-body">
+          <label for="inputName" class="col-sm-2 col-form-label">Date of Date:</label>{{emplyee.birth_date|date:'d M o'}}
+        </div>
+        <div class="card-body">
+          <label for="inputName" class="col-sm-2 col-form-label">Phone:</label>{{emplyee.employee_phone_1}}
+        </div>
+        <div class="card-body">
+          <label for="inputName" class="col-sm-2 col-form-label">Other Phone:</label>{{emplyee.employee_phone_2}}
+        </div>
+        <div class="card-body">
+          <label for="inputName" class="col-sm-2 col-form-label">Governorate:</label>{{emplyee.governorate}}
+        </div>
+        <div class="card-body">
+         <label for="inputName" class="col-sm-2 col-form-label">Email:</label>{{emplyee.employee_email}}
+        </div>
+        <div class="card-body">
+          <label for="inputName" class="col-sm-2 col-form-label">Name:</label>{{emplyee.image}}
         </div>
         <!-- /.card-footer-->
       </div>

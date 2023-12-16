@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1> </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Employee List</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.row -->
+      <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Employee List</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 300px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>National ID</th>
+                      <th>Birth of Date</th>
+                      <th>Phone</th>
+                      <th>Other Phone</th>
+                      <th>governorate</th>
+                      <th>Email</th>
+                    </tr>
+                  </thead>
+                  {% for employee in employees %}
+                  <tbody>
+                    <tr>
+                      <td>{{employee.employee_code}}</td>
+                      <td>{{employee.employee_name}}</td>
+                      <td>{{employee.employee_national_id}}</td>
+                      <td>{{employee.birth_date|date:'d M o'}}</td>
+                      <td>{{employee.employee_phone_1}}</td>
+                      <td>{{employee.employee_phone_2}}</td>
+                      <td>{{employee.governorate}}</td>
+                      <td>{{employee.employee_email}}</td>
+                    </tr>
+                  </tbody>
+                  {% endfor %}
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+    </section>
+    <!-- /.content -->
+  </div>
+
+{% endblock body %}
+
