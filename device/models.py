@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -27,6 +28,12 @@ class device(models.Model):
     sites = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     other = models.TextField(max_length=255)
+
+    slug = models.SlugField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.device_code) ## logic
+        super(device,self).save(*args, **kwargs)
 
     def __str__(self):
         return self.model_name

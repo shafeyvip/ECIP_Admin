@@ -8,8 +8,8 @@ def employees_list(request):
     context = {'employees' : employees_list}
     return render(request, 'employee/employees_list.html', context)
 
-def employee_detail(request, id):
-    employee_detail = employee.objects.get(id=id)
+def employee_detail(request, slug):
+    employee_detail = employee.objects.get(slug=slug)
     context = {'emplyee' : employee_detail}
     return render(request, 'employee/employee_detail.html', context)
 

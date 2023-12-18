@@ -6,5 +6,5 @@ app_name='device'
 
 urlpatterns = [
     path('', views.device_list),
-    path('<int:id>', views.device_detail, name='device_detail'),
+    path('<int:slug>', views.device_detail, name='device_detail'),
 ]

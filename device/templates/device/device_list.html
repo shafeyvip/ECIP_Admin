@@ -164,7 +164,7 @@
                       </td>
 
                       <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="{% url 'devices:device_detail' device.id %}">
+                          <a class="btn btn-primary btn-sm" href="{% url 'devices:device_detail' device.slug %}">
                               <i class="fas fa-folder">
                               </i>
                               View
@@ -185,6 +185,29 @@
               </tbody>
               {% endfor %}
           </table>
+            <!---
+            {% if device.has_other_pages %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="pagination_wrap">
+                            <ul>
+                                {% if device.has_previous %}
+                                    <li><a href="?page={{jobs.previous_page_number}}"> <i class="ti-angle-left"></i> </a></li>
+                                {% endif %}
+
+                                {% for i in device.paginator.page_range %}
+                                    <li><a href="?page={{i}}"><span>{{i}}</span></a></li>
+                                {% endfor %}
+
+                                {% if device.has_next %}
+                                    <li><a href="?page={{jobs.next_page_number}}"> <i class="ti-angle-right"></i> </a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            --->
         </div>
         <!-- /.card-body -->
       </div>
