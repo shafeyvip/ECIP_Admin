@@ -19,3 +19,4 @@ def device_detail(request, slug):
     device_detail = device.objects.get(slug=slug)
     context = {'device' : device_detail}
     return render(request,'device/device_detail.html', context)
+
