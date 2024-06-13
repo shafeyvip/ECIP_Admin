@@ -16,7 +16,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">New Employee</li>
+              <li class="breadcrumb-item active">New Device</li>
             </ol>
           </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Add Employee</h3>
+              <h3 class="card-title">Add Device</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -50,7 +50,7 @@
                   <div class="form-group">
 
                     {% csrf_token %}
-                    {% bootstrap_form form %}
+                    {% bootstrap_form device_form %}
 
                     {% bootstrap_button button_type="submit" content="OK" %}
                     {% bootstrap_button button_type="reset" content="Cancel" %}

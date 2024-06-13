@@ -20,6 +20,13 @@ Relations :
     - Many-to-Many [Admin_User - Groups]       
     - One-to-One   [User - Profile]
 
+-----------------
+** django model queryset
+** django template language
+** django pagination
+** django slug
+
+-----------------
 
 static files : [frontend] images, css, javascript
 

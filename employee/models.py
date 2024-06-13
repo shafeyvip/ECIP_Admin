@@ -8,7 +8,7 @@ def image_upload(instance,filename):
     return "employee/%s.%s"%(instance.employee_code,extension)
 
 class employee(models.Model):
-    employee_code = models.IntegerField(auto_created=True, default=1000)
+    employee_code = models.IntegerField(auto_created=True, default=1000, unique=True)
     employee_name = models.CharField(max_length=50)
     employee_national_id = models.IntegerField()
     birth_date = models.DateField(max_length=8)

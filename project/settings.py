@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-7^mv7g7phh*rk0ff8nhe@y=1+*-(ae3r^!degpqwkxq4di3n3)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.3','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.200','192.168.1.41','192.168.1.205','127.0.0.1']
 
 
 # Application definition
@@ -85,12 +85,35 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",      # mysql DB
+        "NAME": "ecip_admin",
+        "USER": "root",
+        "PASSWORD": "P@ssw0rd",
+        "HOST": "localhost",        # 'localhost' or IP address
+        "PORT": "3306",             # '3306' is the default MySQL port
+    }
+}
+"""
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",      # postgresql DB
+        "NAME": "ecip_db_02",
+        "USER": "admin",
+        "PASSWORD": "admin",
+        "HOST": "localhost",        # 'localhost' or IP address
+        "PORT": "5432",             # '5432' is the default postgresql port
+    }
+}
+
+
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

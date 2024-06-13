@@ -1,10 +1,194 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+
+{% extends 'base.html' %}
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1> </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Ticket List</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.row -->
+      <div class="row">
+          <div class="col-12">
+            <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{tickets.count}} All Tickets </h3>
+            <!-- Paginations -->
+            {% if tickets.has_other_pages %}
+                <div class="card-tools">
+                  <ul class="pagination pagination-sm float-right">
+                      {% if tickets.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{tickets.previous_page_number}}">&laquo;</a></li>
+                      {% endif %}
+                      {% for i in tickets.paginator.page_range %}
+                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                      {% endfor %}
+                      {% if tickets.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{tickets.next_page_number}}">&raquo;</a></li>
+                      {% endif %}
+                  </ul>
+
+                </div>
+            {% endif %}
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped projects">
+              <thead>
+                  <tr>
+                      <!--<th style="width: 5%">
+                          ID
+                      </th>-->
+                      <th style="width: 10%">
+                          ticket_code
+                      </th>
+                      <th style="width: 10%">
+                         Title
+                      </th>
+                      <th style="width: 10%">
+                          Description
+                      </th>
+                      <th style="width: 10%">
+                          Requested_by
+                      </th>
+                      <th style="width: 10%">
+                          Assigned_to
+                      </th>
+                      <th style="width: 5%">
+                          Start_date
+                      </th>
+                      <th style="width: 5%">
+                          Due_date
+                      </th>
+                      <th style="width: 10%">
+                          Comment
+                      </th>
+                      <th style="width: 5%">
+                          Status
+                      </th>
+                  </tr>
+              </thead>
+              {% for ticket in tickets %}
+              <tbody>
+                  <tr>
+                      <!---<td>
+                          <a>
+                              {{ticket.ticket_id}}
+                          </a>
+                          <br/>
+                      </td> --->
+                      <td>
+                          <a>
+                              {{ticket.ticket_code}}
+                          </a>
+                          <br/>
+
+                          <small>
+                              {{ticket.birth_date|date:'o M d'}}
+                          </small>
+
+                      </td>
+                      <td>
+                          <a>
+                              {{ticket.title}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{ticket.description}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{ticket.requested_by}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{ticket.assigned_to}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{ticket.start_date|date:'d M o'}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{ticket.due_date|date:'d M o'}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{ticket.comment}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td>
+                          <a>
+                              {{ticket.status}}
+                          </a>
+                          <br/>
+                      </td>
+                      <td class="project-actions text-right">
+                          <a class="btn btn-primary btn-sm" href="{% url 'ticket:ticket_detail' ticket.slug %}">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                          </a>
+                          <a class="btn btn-info btn-sm" href="{% url 'ticket:ticket_detail' ticket.slug %}">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="#">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
+                      </td>
+                  </tr>
+
+              </tbody>
+              {% endfor %}
+          </table>
+        </div>
+          
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </section>
+            <!-- /.card -->
+          </div>
+        </div>
+    </section>
+    <!-- /.content -->
+  </div>
+
+{% endblock body %}
+
