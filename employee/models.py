@@ -18,12 +18,20 @@ class employee(models.Model):
     employee_email = models.CharField(max_length=50)
     image = models.ImageField(upload_to=image_upload, null=True, blank=True)
 
-    slug = models.SlugField(blank=True, null=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.employee_code)
+        super(employee, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.employee_name
+"""
     def save(self, *args, **kwargs):
         self.slug = slugify(self.employee_code)  ## logic
         super(employee, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.employee_name
-
+"""

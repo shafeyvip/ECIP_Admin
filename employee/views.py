@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 from .models import employee
 from .form import EmployeeForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required
 def employees_list(request):
     employees_list = employee.objects.all()
 
@@ -15,11 +18,13 @@ def employees_list(request):
     context = {'employees' : page_obj}
     return render(request, 'employee/employees_list.html', context)
 
+@login_required
 def employee_detail(request, slug):
     employee_detail = employee.objects.get(slug=slug)
     context = {'emplyee' : employee_detail}
     return render(request, 'employee/employee_detail.html', context)
 
+@login_required
 def employee_edit(request, slug):
     employee_edit = employee.objects.get(slug=slug)
 
@@ -32,6 +37,23 @@ def employee_edit(request, slug):
     context = {'emplyee' : employee_edit, 'form':form}
     return render(request, 'employee/employee_edit.html', context)
 
+
+@login_required
+def employees_edit(request, slug):
+    employee_edit = get_object_or_404(employee, slug=slug)
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST, request.FILES, instance=employee_edit)
+        context = {'employee_form': form}
+        if form.is_valid():
+            form.save()
+            return redirect('/employee/')  # Redirect to the employee detail view
+    else:
+        form = EmployeeForm(instance=employee_edit)
+
+    context = {'employee_form': form}
+    return render(request, 'employee/employee_edit.html', context)
+
+@login_required
 def employee_add(request):
     if request.method == 'POST':
         form = EmployeeForm(request.POST, request.FILES)
@@ -42,10 +64,16 @@ def employee_add(request):
     else:
         form = EmployeeForm()
 
-    return render(request, 'employee/employee_new.html', {'form': form})
+    return render(request, 'employee/employee_new.html', {'employee_form': form})
 
-
+"""
+@login_required
 def employee_dashboard(request):
     employees_list = employee.objects.all()
     context = {'employees' : employees_list}
     return render(request, 'employee/dashboard1.html', context)
+"""
+@login_required
+def employee_dashboard(request):
+    total_employees = employee.objects.count()
+    return render(request, 'dashboard.html', {'total_employees': total_employees})

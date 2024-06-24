@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load django_bootstrap5 %}
 {% block body %}
 
   <!-- Content Wrapper. Contains page content -->
@@ -8,7 +8,7 @@
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
+          <div class="col-sm-6 mx-auto">
             <h1>Employee Edit</h1>
           </div>
           <div class="col-sm-6">
@@ -39,32 +39,20 @@
           </div>
         </div>
         <div class="card-body">
-          <label for="inputName" class="col-sm-2 col-form-label">ID00:</label>{{emplyee.employee_code}}
-        </div>
-        <div class="card-body">
-          <label for="inputName" class="col-sm-2 col-form-label">Name:</label>{{emplyee.employee_name}}
-        </div>
-        <div class="card-body">
-          <label for="inputName" class="col-sm-2 col-form-label">National ID:</label>{{emplyee.employee_national_id}}
-        </div>
-        <div class="card-body">
-          <label for="inputName" class="col-sm-2 col-form-label">Date of Date:</label>{{emplyee.birth_date|date:'d M o'}}
-        </div>
-        <div class="card-body">
-          <label for="inputName" class="col-sm-2 col-form-label">Phone:</label>{{emplyee.employee_phone_1}}
-        </div>
-        <div class="card-body">
-          <label for="inputName" class="col-sm-2 col-form-label">Other Phone:</label>{{emplyee.employee_phone_2}}
-        </div>
-        <div class="card-body">
-          <label for="inputName" class="col-sm-2 col-form-label">Governorate:</label>{{emplyee.governorate}}
-        </div>
-        <div class="card-body">
-         <label for="inputName" class="col-sm-2 col-form-label">Email:</label>{{emplyee.employee_email}}
-        </div>
-        <div class="card-body">
-          <label for="inputName" class="col-sm-2 col-form-label">Name:</label>{{emplyee.image}}
-        </div>
+              <div class="form-group">
+                <form action="#" method="post" class="form" enctype="multipart/form-data">
+                  <div class="card-body">
+                    <div class="form-group">
+                      {% csrf_token %}
+                      {% bootstrap_form employee_form %}
+
+                      {% bootstrap_button button_type="submit" content="Save" %}
+                      {% bootstrap_button button_type="reset" content="Cancel" %}
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
         <!-- /.card-footer-->
       </div>
       <!-- /.card -->

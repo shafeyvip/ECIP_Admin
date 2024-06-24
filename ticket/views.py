@@ -2,10 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from .models import Ticket
-from .form import TicketForm
+from .form import TicketForm, TicketEditForm
+import openpyxl
+import pandas as pd
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
+@login_required
 def Index(request):
     #return HttpResponse('Welcome to index page')
     context = {'name': 'Shafey',
@@ -14,6 +19,7 @@ def Index(request):
                }
     return render(request, 'index.html', context)
 
+@login_required
 def Device(request):
     #return HttpResponse('Welcome to Device page')
     devices = models.Device.objects.all()
@@ -22,15 +28,18 @@ def Device(request):
     }
     return render(request, 'device.html', context)
 
+@login_required
 def IT(request):
     return HttpResponse('Welcome to IT page')
 
+@login_required
 def Employee(request):
     return HttpResponse('Welcome to Employee page')
 
 """def Ticket(request):
     return HttpResponse('Welcome to Ticket page')"""
 
+@login_required
 def tickets_list(request):
     tickets = Ticket.objects.all()
 
@@ -41,13 +50,32 @@ def tickets_list(request):
     context = {'tickets' : page_obj}
     return render(request, 'ticket/ticket_list.html', context)
 
+@login_required
 def Ticket_detail(request, slug):
     ticket = Ticket.objects.get(slug=slug)
     context = {'ticket': ticket}
     return render(request, 'ticket/ticket_detail.html', context)
 
-def New_Ticket(request):
-    pass
+@login_required
+def Dashboard_Ticket(request):
+    total_tickets = Ticket.objects.count()
+    open_tickets = Ticket.objects.filter(status='open').count()
+    in_progress_tickets = Ticket.objects.filter(status='in_progress').count()
+    resolved_tickets = Ticket.objects.filter(status='resolved').count()
+    closed_tickets = Ticket.objects.filter(status='closed').count()
+
+    context = {
+        'total_tickets': total_tickets,
+        'open_tickets': open_tickets,
+        'in_progress_tickets': in_progress_tickets,
+        'resolved_tickets': resolved_tickets,
+        'closed_tickets': closed_tickets,
+    }
+
+    return render(request, 'ticket_list.html', context)
+
+
+@login_required
 def Ticket_add(request):
     if request.method == 'POST':
         form = TicketForm(request.POST, request.FILES)
@@ -61,3 +89,19 @@ def Ticket_add(request):
     return render(request, 'ticket/ticket_new.html', {'ticket_form': form})
 
 
+@login_required
+def Ticket_edit(request, slug):
+    ticket = get_object_or_404(Ticket, slug=slug)
+    if request.method == 'POST':
+        form = TicketEditForm(request.POST, request.FILES, instance=ticket)
+        context = {'ticket_form': form}
+        if form.is_valid():
+            form.save()
+            return redirect('/ticket/')
+            #return render(request, 'ticket/ticket_edit.html', context)
+    else:
+        form = TicketEditForm(instance=ticket)
+
+    context = {'ticket_form': form}
+    #return redirect('ticket_detail', slug=ticket.slug)
+    return render(request, 'ticket/ticket_edit.html', context)

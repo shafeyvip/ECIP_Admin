@@ -5,9 +5,10 @@ from . import views
 app_name='ticket'
 
 urlpatterns = [
-    path('', views.tickets_list),
+    path('ticket/', views.tickets_list, name='ticket_list'),
+    path('', views.Index, name='home'),
     path('index', views.Index, name='home'),
-    path('<int:slug>', views.Ticket_detail, name='ticket_detail'),
+    path('ticket/<slug:slug>', views.Ticket_detail, name='ticket_detail'),
     path('new/', views.Ticket_add, name='ticket_new'),
-    #path('ticket', views.Ticket, name='ticket'),
+    path('ticket/<slug:slug>/edit/', views.Ticket_edit, name='ticket_edit'),
 ]

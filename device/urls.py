@@ -6,6 +6,8 @@ app_name='device'
 
 urlpatterns = [
     path('', views.device_list),
-    path('<int:slug>', views.device_detail, name='device_detail'),
+    path('device/<slug:slug>', views.device_detail, name='device_detail'),
     path('new/', views.device_add, name='device_new'),
+    path('device/<slug:slug>/edit/', views.device_edit, name='device_edit'),
+    #path('<slug:slug>/edit/', views.device_edit, name='device_edit'),
 ]

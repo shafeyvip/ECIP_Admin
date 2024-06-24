@@ -20,11 +20,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
     path('admin/', admin.site.urls),
     path('', include('ticket.urls', namespace='home')),  # Home page URL pattern
     path('device/', include('device.urls', namespace='devices')),
     path('employee/', include('employee.urls', namespace='employees')),
     path('ticket/', include('ticket.urls', namespace='tickets')),
+    path('contact-us/', include('contact.urls', namespace='contact')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

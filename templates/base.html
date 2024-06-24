@@ -24,10 +24,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../../index" class="nav-link">Home</a>
+        <a href="/index" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="{% url 'contact:contact' %}" class="nav-link">Contact</a>
       </li>
     </ul>
 
@@ -66,6 +66,15 @@
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
+      {% if request.user.is_authenticated %}
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'accounts:profile' %}" class="nav-link">{{profile}}</a>
+      </li>
+      {% else %}
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'login' %}" class="nav-link">Login</a>
+      </li>
+      {% endif %}
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -74,7 +83,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="https://ecipegypt.com/wp-content/uploads/2021/08/cropped-cropped-cropped-ECIP-LOGO-x3-e1639515869535.png" alt="ECIP Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{% static 'dist/img/ECIPLogo.png' %}" alt="ECIP Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">ECIP</span>
     </a>
 
@@ -86,7 +95,7 @@
           <img src="{% static 'dist/img/avatar5.png' %}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin</a>
+          <a href="#" class="d-block">User</a>
         </div>
       </div>
 
@@ -117,7 +126,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../dashboard1" class="nav-link">
+                <a href="/dashboard1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v1</p>
                 </a>
@@ -134,7 +143,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../device" class="nav-link">
+                <a href="/device" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Devices List</p>
                 </a>
@@ -142,20 +151,22 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../device/new" class="nav-link">
+                <a href="/device/new" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Device</p>
                 </a>
               </li>
             </ul>
+            <!--
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../index.html" class="nav-link">
+                <a href="../../device/edit" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Edit Device</p>
                 </a>
               </li>
             </ul>
+            -->
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -167,7 +178,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../employee" class="nav-link">
+                <a href="/employee" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Employees List</p>
                 </a>
@@ -175,12 +186,13 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../employee/new" class="nav-link">
+                <a href="/employee/new/" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Employee</p>
                 </a>
               </li>
             </ul>
+            <!--
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="../../index.html" class="nav-link">
@@ -189,6 +201,7 @@
                 </a>
               </li>
             </ul>
+            -->
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -200,7 +213,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../ticket" class="nav-link">
+                <a href="/ticket" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tickets List</p>
                 </a>
@@ -208,12 +221,13 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../ticket/new" class="nav-link">
+                <a href="/ticket/new/" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Ticket</p>
                 </a>
               </li>
             </ul>
+            <!--
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="../../index.html" class="nav-link">
@@ -222,7 +236,9 @@
                 </a>
               </li>
             </ul>
+            -->
           </li>
+          <!--
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i>
@@ -256,6 +272,8 @@
               </li>
             </ul>
           </li>
+          -->
+          <!--
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fa fa-fw fa-history" aria-hidden="true"></i>
@@ -273,6 +291,7 @@
               </li>
             </ul>
           </li>
+          -->
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fa fa-fw fa-cog" aria-hidden="true"></i>
@@ -283,7 +302,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../index.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>setting</p>
                 </a>

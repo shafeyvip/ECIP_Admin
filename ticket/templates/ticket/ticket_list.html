@@ -23,7 +23,7 @@
     </section>
     <!-- Main content -->
     <section class="content">
-        <!-- /.row -->
+
       <div class="row">
           <div class="col-12">
             <!-- Main content -->
@@ -161,7 +161,7 @@
                               </i>
                               View
                           </a>
-                          <a class="btn btn-info btn-sm" href="{% url 'ticket:ticket_detail' ticket.slug %}">
+                          <a class="btn btn-info btn-sm" href="{% url 'ticket:ticket_edit' ticket.slug %}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
@@ -178,7 +178,7 @@
               {% endfor %}
           </table>
         </div>
-          
+
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
@@ -188,6 +188,7 @@
         </div>
     </section>
     <!-- /.content -->
+
   </div>
 
 {% endblock body %}

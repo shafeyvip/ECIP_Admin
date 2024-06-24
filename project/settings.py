@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['192.168.0.200','192.168.1.41','192.168.1.205','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,11 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
+    'import_export',
 
     # My Apps
     'device',
     'employee',
-    'accounts',
     'contact',
     'home',
     'ticket',
@@ -87,7 +88,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",      # mysql DB
-        "NAME": "ecip_admin",
+        "NAME": "ecip_db_02",
         "USER": "root",
         "PASSWORD": "P@ssw0rd",
         "HOST": "localhost",        # 'localhost' or IP address

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>User Profile</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">User Profile</li>
+            </ol>
+          </div>
+
+          <div class="card card-primary mx-auto col-sm-8">
+              <div class="card-header">
+                <h3 class="card-title">User Information</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form action="{% url 'accounts:profile_edit' %}">
+                <div class="card-body">
+                  <ul>
+                    <li>Name: <span>{{profile}}</span></li>
+                    <li>Email: <span>{{profile.user.email}}</span></li>
+                    <li>Phone: <span>{{profile.phone_number}}</span></li>
+                  </ul>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary" href="{% url 'accounts:profile_edit' %}">Edit User Profile</button>
+                </div>
+              </form>
+            </div>
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+{% endblock body %}
+

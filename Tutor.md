@@ -31,3 +31,31 @@ Relations :
 static files : [frontend] images, css, javascript
 
 media files : [upload] images
+
+---------------
+
+- dashboard
+    - count date (tickets, device, employees)
+- Export (PDF)
+    pip install reportlab
+- Export (Excel)  (Done)
+    pip install django-import-export
+    'import_export', #on settings 
+    
+- Import (Excel)  (Done)
+
+- Print
+
+-----------------
+
+- Login (Done)
+- Logout
+- Profiles (Done)
+- Permissions
+
+-----------------
+
+- Reports
+
+-----------------
+
