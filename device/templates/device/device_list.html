@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load django_bootstrap5 %}
 {% block body %}
 
   <!-- Content Wrapper. Contains page content -->
@@ -17,6 +17,38 @@
               <li class="breadcrumb-item active">Devices List</li>
             </ol>
           </div>
+
+            <div class="col-md-50">
+            <div class="card card-success" style="transition: all 0.15s ease 0s; height: inherit; width: inherit;">
+              <div class="card-header">
+                <h3 class="card-title">Search</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                <!-- /.card-tools -->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body"><span class="text-danger">
+                <form method="GET">
+                  {% bootstrap_form myfilter.form %}
+                  <input type="submit" value="Search" class="btn btn-block btn-success btn-lg mt-2">
+              </form>
+            </span></div>
+
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
         </div>
       </div><!-- /.container-fluid -->
     </section>

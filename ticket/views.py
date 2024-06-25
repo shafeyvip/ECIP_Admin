@@ -6,6 +6,7 @@ from .form import TicketForm, TicketEditForm
 import openpyxl
 import pandas as pd
 from django.contrib.auth.decorators import login_required
+from .filters import TicketFilter
 
 
 # Create your views here.
@@ -41,13 +42,17 @@ def Employee(request):
 
 @login_required
 def tickets_list(request):
-    tickets = Ticket.objects.all()
+    tickets = Ticket.objects.all().order_by('ticket_id')  # Order by 'id' or any other field
 
-    paginator = Paginator(tickets, 10)  # Show 10 contacts per page.
+    ## filters
+    myfilter = TicketFilter(request.GET,queryset=tickets)
+    tickets= myfilter.qs
+
+    paginator = Paginator(tickets, 100)  # Show 100 contacts per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    context = {'tickets' : page_obj}
+    context = {'tickets' : page_obj, 'myfilter' : myfilter}
     return render(request, 'ticket/ticket_list.html', context)
 
 @login_required

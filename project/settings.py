@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_bootstrap5',
     'import_export',
+    'django_filters',
 
     # My Apps
     'device',

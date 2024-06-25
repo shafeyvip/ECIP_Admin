@@ -10,12 +10,12 @@ def image_upload(instance,filename):
 class employee(models.Model):
     employee_code = models.IntegerField(auto_created=True, default=1000, unique=True)
     employee_name = models.CharField(max_length=50)
-    employee_national_id = models.IntegerField()
+    employee_national_id = models. BigIntegerField()
     birth_date = models.DateField(max_length=8)
     employee_phone_1 = models.IntegerField()
     employee_phone_2 = models.IntegerField(null=True, blank=True)
-    governorate = models.CharField(max_length=25)
-    employee_email = models.CharField(max_length=50)
+    governorate = models.CharField(max_length=25, null=True, blank=True)
+    employee_email = models.CharField(max_length=50, null=True, blank=True)
     image = models.ImageField(upload_to=image_upload, null=True, blank=True)
 
     slug = models.SlugField(unique=True, blank=True, null=True)

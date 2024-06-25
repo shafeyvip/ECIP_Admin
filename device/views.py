@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from .form import DeviceForm
 from .models import device
+from .filters import DeviceFilter
 
 from django.http import HttpResponse
 import csv
@@ -17,13 +18,17 @@ from reportlab.lib.pagesizes import letter
 
 @login_required
 def device_list(request):
-    device_list = device.objects.all()
+    device_list = device.objects.all().order_by('id')  # Order by 'id' or any other field
 
-    paginator = Paginator(device_list, 10)  # Show 10 contacts per page.  ### Paginator
+    ## filters
+    myfilter = DeviceFilter(request.GET, queryset=device_list)
+    device_list = myfilter.qs
+
+    paginator = Paginator(device_list, 100)  # Show 100 contacts per page.  ### Paginator
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    context = {'devices': page_obj }
+    context = {'devices': page_obj, 'myfilter' : myfilter}
     return render(request,'device/device_list.html', context)
 
 

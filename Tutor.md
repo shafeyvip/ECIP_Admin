@@ -52,6 +52,7 @@ media files : [upload] images
 - Logout
 - Profiles (Done)
 - Permissions
+- Search (Done)
 
 -----------------
 
