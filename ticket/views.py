@@ -7,6 +7,12 @@ import openpyxl
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from .filters import TicketFilter
+import psutil
+from django.utils import timezone
+import pytz
+from employee.models import employee
+from django.contrib import messages
+from dashboard.decorators import allowedUsers, PowerUsers
 
 
 # Create your views here.
@@ -14,10 +20,36 @@ from .filters import TicketFilter
 @login_required
 def Index(request):
     #return HttpResponse('Welcome to index page')
-    context = {'name': 'Shafey',
-               'age': 47,
-               'jobs': ['network eng', 'dev', 'system admin']
-               }
+    cpu_usage = psutil.cpu_percent(interval=1)  # Get the CPU usage percentage over 1 second
+
+    # Get the RAM usage details
+    memory = psutil.virtual_memory()
+    total_memory = memory.total
+    available_memory = memory.available
+    used_memory = memory.used
+    memory_percent = memory.percent
+
+
+    # Get today's date and current time in Cairo timezone
+    cairo_tz = pytz.timezone('Africa/Cairo')
+    current_time_cairo = timezone.now().astimezone(cairo_tz)
+
+    # Get employees whose birthday is today
+    today = current_time_cairo.date()
+    # Get employees whose birthday is today
+    birthday_employees = employee.objects.filter(birth_date__month=today.month, birth_date__day=today.day)
+
+    context = {
+        'cpu_usage': cpu_usage,
+        'total_memory': total_memory,
+        'available_memory': available_memory,
+        'used_memory': used_memory,
+        'memory_percent': memory_percent,
+        'today':today,
+        'birthday_employees': birthday_employees,
+        'current_time_cairo': current_time_cairo.time(),  # Display time only
+
+    }
     return render(request, 'index.html', context)
 
 @login_required
@@ -64,6 +96,8 @@ def Ticket_detail(request, slug):
 @login_required
 def Dashboard_Ticket(request):
     total_tickets = Ticket.objects.count()
+    total_tickets = int(total_tickets)
+
     open_tickets = Ticket.objects.filter(status='open').count()
     in_progress_tickets = Ticket.objects.filter(status='in_progress').count()
     resolved_tickets = Ticket.objects.filter(status='resolved').count()
@@ -110,3 +144,12 @@ def Ticket_edit(request, slug):
     context = {'ticket_form': form}
     #return redirect('ticket_detail', slug=ticket.slug)
     return render(request, 'ticket/ticket_edit.html', context)
+
+@login_required
+@allowedUsers(allowedGroups=['Power Users'])
+def delete_ticket(request, slug):
+    ticket = get_object_or_404(Ticket, slug=slug)
+    ticket.delete()
+    messages.success(request, "Ticket deleted successfully.")
+    return redirect('/ticket')  # redirect to a page showing the ticket list or the dashboard
+

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import Profile
 from .form import SignupForm, UserForm, ProfileForm
 from django.urls import reverse
@@ -44,4 +44,9 @@ def profile_edit(request):
         profileform = ProfileForm(instance=profile)
 
     return render(request, 'accounts/profile_edit.html', {'userform': userform, 'profileform': profileform})
+
+def signout(request):
+    logout(request)
+    #return redirect("accounts:signin")
+    return render(request,'registration/logged_out.html')
 

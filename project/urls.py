@@ -28,6 +28,9 @@ urlpatterns = [
     path('employee/', include('employee.urls', namespace='employees')),
     path('ticket/', include('ticket.urls', namespace='tickets')),
     path('contact-us/', include('contact.urls', namespace='contact')),
+    path('dashboard', include('dashboard.urls', namespace='dashboard')),
+    path('calendar/', include('dashboard.urls', namespace='calendar')),
+    #path('calendar', include('schedule.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -43,6 +43,12 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'import_export',
     'django_filters',
+    'widget_tweaks',
+    'slick_reporting',
+    'django_summernote',
+    'schedule',
+
+
 
     # My Apps
     'device',
@@ -50,6 +56,7 @@ INSTALLED_APPS = [
     'contact',
     'home',
     'ticket',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -141,7 +148,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+#TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Cairo'
 
 USE_I18N = True
 

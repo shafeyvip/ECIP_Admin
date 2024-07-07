@@ -5,6 +5,10 @@ from .models import employee
 from .form import EmployeeForm
 from django.contrib.auth.decorators import login_required
 from .filters import EmployeeFilter
+from django.contrib import messages
+from dashboard.decorators import allowedUsers, PowerUsers
+
+
 
 # Create your views here.
 
@@ -82,14 +86,27 @@ def employee_add(request):
 
     return render(request, 'employee/employee_new.html', {'employee_form': form})
 
-"""
 @login_required
-def employee_dashboard(request):
-    employees_list = employee.objects.all()
-    context = {'employees' : employees_list}
-    return render(request, 'employee/dashboard1.html', context)
-"""
+@PowerUsers
+def delete_employee(request, slug):
+    employee_delete = employee.objects.get(slug=slug)
+    employee_delete.delete()
+    messages.success(request, "employee deleted successfully.")
+    return redirect('/employee')  # redirect to a page showing the device list or the dashboard
+
+
 @login_required
 def employee_dashboard(request):
     total_employees = employee.objects.count()
     return render(request, 'dashboard.html', {'total_employees': total_employees})
+
+###### Report ########
+"""
+def my_report(request):
+    # Initialise the report
+    template = "employee/my_report.html"
+    report = MyReport()
+    context = {'report': report}
+
+    return render(request, template, context)
+"""

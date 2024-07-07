@@ -1,0 +1,308 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block body %}
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1> </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">ECIP</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.row -->
+      <div class="row">
+          <div class="col-12">
+            <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ today }}</h3>
+
+                <h4>{{ current_time }}</h4>
+              </div>
+              <div class="icon">
+                <i class="fas fa-calendar"></i>
+              </div>
+              <a href="#" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{devices.count}}<sup style="font-size: 20px"></sup></h3>
+
+                <p>Devices</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-laptop"></i>
+              </div>
+              <a href="/device" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{employees.count}}</h3>
+
+                <p>Employees</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-user-plus"></i>
+              </div>
+              <a href="/employee" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{tickets.count}}</h3>
+
+                <p>Tickets</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-tags"></i>
+              </div>
+              <a href="/ticket" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+
+      <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <!-- Congratulations Birthday -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Birthday</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="info-box-number">
+                  {% if birthday_employees %}
+                    <h1>Congratulations</h1>
+                    <h3>Happy Birthday to:</h3>
+                    <ul>
+                      {% for employee in birthday_employees %}
+                        <li><h1>{{ employee.employee_name }}</h1></li>
+                      {% endfor %}
+                    </ul>
+                    <h3>“Hope all your birthday wishes come true!”</h3>
+                  {% endif %}
+                </span>
+                <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                  <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 319px;" width="319" height="250" class="chartjs-render-monitor"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.Birthday -->
+
+              <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">DataTable for Tickets</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dt-buttons btn-group flex-wrap">               <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Copy</span></button> <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>CSV</span></button> <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Excel</span></button> <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>PDF</span></button> <button class="btn btn-secondary buttons-print" tabindex="0" aria-controls="example1" type="button"><span>Print</span></button> <div class="btn-group"><button class="btn btn-secondary buttons-collection dropdown-toggle buttons-colvis" tabindex="0" aria-controls="example1" type="button" aria-haspopup="true"><span>Column visibility</span><span class="dt-down-arrow"></span></button></div> </div></div><div class="col-sm-12 col-md-6"><div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable dtr-inline collapsed" aria-describedby="example1_info">
+                  <thead>
+                  <tr><th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Ticet Code</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Title</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Requested By</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Status</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Start Date</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="display: none;">CSS grade</th></tr><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="display: none;">CSS grade</th></tr>
+                  </thead>
+                  <tbody>
+                  {% for ticket in tickets %}
+                  <tr class="odd">
+                    <td>{{ ticket.ticket_code }}</td>
+                    <td>{{ ticket.title }}</td>
+                    <td>{{ ticket.requested_by }}</td>
+                    <td>{{ ticket.status }}</td>
+                    <td>{{ ticket.start_date }}</td>
+                    <td style="display: none;">A</td>
+                  </tr><tr class="even">
+                    {% endfor %}
+                    </tbody>
+
+                </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+          </div>
+          <!-- /.col (LEFT) -->
+
+          <div class="col-md-6">
+
+            <!-- Calendar -->
+
+            <!-- /.Calendar -->
+
+            <!-- Calendar 1 -->
+
+            <!-- /.Calendar 1 -->
+
+            <!-- CALENDAR -->
+
+                  <body onload="randerDate()">
+
+    <div class="container">
+
+        <div class="calendar">
+
+            <div class="digital_clock">
+
+                <div class="time">
+                    <span class="hours">00</span>:
+                    <span class="minutes">00</span>:
+                    <span class="seconds">00</span>
+                    <span class="format">AM</span>
+                </div>
+
+            </div>
+
+            <div class="month">
+
+                <div class="prev" onclick="moveDate('prev')">
+                    <span class="arrow">&#10094</span>
+                </div>
+
+                <div>
+                    <h2 id="month">July-2024</h2>
+                    <p id="date">Wed July 20 2024</p>
+                </div>
+
+                <div class="next" onclick="moveDate('next')">
+                    <span class="arrow">&#10095</span>
+                </div>
+
+            </div>
+
+            <div class="week">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+
+            <div class="dates">
+                <!-- <div class="prev">26</div>
+                <div class="prev">27</div>
+                <div class="prev">28</div>
+                <div class="prev">29</div>
+                <div class="prev">30</div>
+                <div class="prev">32</div>
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>6</div>
+                <div>7</div>
+                <div>8</div>
+                <div>9</div>
+                <div>10</div>
+                <div>11</div>
+                <div>12</div>
+                <div>13</div>
+                <div>14</div>
+                <div>15</div>
+                <div>16</div>
+                <div>17</div>
+                <div>18</div>
+                <div>19</div>
+                <div>20</div>
+                <div>21</div>
+                <div>22</div>
+                <div>23</div>
+                <div>24</div>
+                <div>25</div>
+                <div>26</div>
+                <div>27</div>
+                <div>28</div>
+                <div>29</div>
+                <div>30</div>
+                <div class="next">1</div>
+                <div class="next">2</div>
+                <div class="next">3</div>
+                <div class="next">4</div>
+                <div class="next">5</div>
+                <div class="next">6</div> -->
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+            <!-- /.card -->
+
+            <!-- /.card -->
+
+            <!-- BAR CHART -->
+
+            <!-- /.card -->
+
+            <!-- STACKED BAR CHART -->
+
+            <!-- /.card -->
+
+          </div>
+          <!-- /.col (RIGHT) -->
+
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+
+    </section>
+            <!-- /.card -->
+          </div>
+        </div>
+    </section>
+    <!-- /.content -->
+  </div>
+{% endblock body %}

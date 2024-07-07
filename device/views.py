@@ -12,6 +12,9 @@ import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
+from django.contrib import messages
+from dashboard.decorators import allowedUsers, PowerUsers
+
 
 
 # Create your views here.
@@ -83,4 +86,12 @@ def device_edit(request, slug):
         form = DeviceForm(instance=device_edit)
     return render(request,'device/device_edit.html', {'form':form, 'edit_mode': True})
 """
+
+@login_required
+@PowerUsers
+def delete_device(request, slug):
+    device_delete = device.objects.get(slug=slug)
+    device_delete.delete()
+    messages.success(request, "device deleted successfully.")
+    return redirect('/device')  # redirect to a page showing the device list or the dashboard
 

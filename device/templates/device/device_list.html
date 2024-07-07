@@ -19,7 +19,7 @@
           </div>
 
             <div class="col-md-50">
-            <div class="card card-success" style="transition: all 0.15s ease 0s; height: inherit; width: inherit;">
+            <div class="card card-success collapsed-card" style="transition: all 0.15s ease 0s; height: inherit; width: inherit;">
               <div class="card-header">
                 <h3 class="card-title">Search</h3>
 
@@ -28,7 +28,7 @@
                     <i class="fas fa-expand"></i>
                   </button>
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
+                    <i class="fas fa-plus"></i>
                   </button>
                   <button type="button" class="btn btn-tool" data-card-widget="remove">
                     <i class="fas fa-times"></i>
@@ -205,8 +205,7 @@
 
                       <td class="project-actions text-right">
                           <a class="btn btn-primary btn-sm" href="{% url 'devices:device_detail' device.slug %}">
-                              <i class="fas fa-folder">
-                              </i>
+                              <i class="fa fa-fw fa-laptop" aria-hidden="true"></i>
                               View
                           </a>
                           <a class="btn btn-info btn-sm" href="{% url 'devices:device_edit' device.slug %}">
@@ -214,7 +213,7 @@
                               </i>
                               Edit
                           </a>
-                          <a class="btn btn-danger btn-sm" href="#">
+                          <a class="btn btn-danger btn-sm" href="{% url 'devices:delete_device' device.slug %}">
                               <i class="fas fa-trash">
                               </i>
                               Delete

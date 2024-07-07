@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Ticket</title>
+</head>
+<body>
+    <h2>Are you sure you want to delete the ticket "{{ ticket.title }}"?</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm</button>
+        <a href="{% url 'dashboard' %}">Cancel</a>
+    </form>
+</body>
+</html>

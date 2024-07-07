@@ -37,8 +37,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">CPU Traffic</span>
                 <span class="info-box-number">
-                  10
-                  <small>%</small>
+                  <small>{{ cpu_usage }}%</small>
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -49,10 +48,26 @@
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-fw fa-tags"></i></span>
-
+              <!--
               <div class="info-box-content">
-                <span class="info-box-text">Tickets</span>
-                <span class="info-box-number">41,410</span>
+                <span class="info-box-text">Memory</span>
+                <span class="info-box-number"><ul>
+                   <small>Using: {{ memory_percent }} % Total: {{ total_memory|filesizeformat }}</small>
+
+    <li>Total: {{ total_memory|filesizeformat }}</li>
+    <li>Available: {{ available_memory|filesizeformat }}</li>
+    <li>Used: {{ used_memory|filesizeformat }}</li>
+    <li>{{ memory_percent }} %</li>
+
+
+  </ul></span>
+              </div>
+              -->
+              <div class="info-box-content">
+                <span class="info-box-text">Memory</span>
+                <span class="info-box-number">
+                  <small>{{ memory_percent }} %</small>
+                </span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -66,11 +81,11 @@
 
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fa fa-fw fa-laptop"></i></span>
+              <span class="info-box-icon bg-success elevation-1"><i class="fa fa-fw fa-calendar" aria-hidden="true"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Devices</span>
-                <span class="info-box-number">{{Dashboard_Ticket.count}}</span>
+                <span class="info-box-text">Date</span>
+                <span class="info-box-number">{{today}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -79,11 +94,11 @@
           <!-- /.col -->
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+              <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-fw fa-clock" aria-hidden="true"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Employees</span>
-                <span class="info-box-number">{{ total_employees }}</span>
+                <span class="info-box-text">Time</span>
+                <span class="info-box-number">{{ current_time_cairo }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -92,10 +107,101 @@
           <!-- /.col -->
         </div>
 
+
+
       <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6">
+
+                        <!-- Congratulations Birthday -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Birthday</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="info-box-number">
+                  {% if birthday_employees %}
+                    <h1>Congratulations</h1>
+                    <h3>Happy Birthday to:</h3>
+                    <ul>
+                      {% for employee in birthday_employees %}
+                        <li><h1>{{ employee.employee_name }}</h1></li>
+                      {% endfor %}
+                    </ul>
+                    <h3>“Hope all your birthday wishes come true!”</h3>
+                  {% endif %}
+                </span>
+                <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                  <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 319px;" width="319" height="250" class="chartjs-render-monitor"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.Birthday -->
+
+            <div class="card">
+              <div class="card-header ui-sortable-handle" style="cursor: move;">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Sales
+                </h3>
+                <div class="card-tools">
+                  <ul class="nav nav-pills ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                    </li>
+                  </ul>
+                </div>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content p-0">
+                  <!-- Morris chart - Sales -->
+                  <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px; display: block; width: 449px;" width="449" class="chartjs-render-monitor"></canvas>
+                   </div>
+                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <canvas id="sales-chart-canvas" height="300" style="height: 300px; display: block; width: 713px;" class="chartjs-render-monitor" width="713"></canvas>
+                  </div>
+                </div>
+              </div><!-- /.card-body -->
+            </div>
+
+            <div class="col-lg-13">
+              <div class="card">
+
+        <div class="card-header">
+            <h5 class="card-title">Widget custom title</h5>
+        </div>
+
+    <div class="card-body">
+        <div data-report-widget="" data-report-url="/total-product-sales-by-country/" data-extra-params="" data-success-callback="" data-chart-id="" data-display-chart-selector="True" data-failure-callback="">
+
+
+                    <div data-report-chart=""><div data-inner-chart-container="" style="width: 100%; height: 400px; overflow: hidden;" data-highcharts-chart="0"><div id="highcharts-t8fyvzu-0" dir="ltr" style="position: relative; overflow: hidden; width: 450px; height: 400px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); user-select: none; touch-action: manipulation; outline: none;" class="highcharts-container "><svg version="1.1" class="highcharts-root" style="font-family: Helvetica, Arial, sans-serif; font-size: 1rem;" xmlns="http://www.w3.org/2000/svg" width="450" height="400" viewBox="0 0 450 400" role="img" aria-label="Total sold by country $"><desc>Created with Highcharts 11.4.3</desc><defs><filter id="highcharts-drop-shadow-0"><feDropShadow dx="1" dy="1" flood-color="#000000" flood-opacity="0.75" stdDeviation="2.5"></feDropShadow></filter></defs><rect fill="#ffffff" class="highcharts-background" filter="none" x="0" y="0" width="450" height="400" rx="0" ry="0"></rect><rect fill="none" class="highcharts-plot-background" x="10" y="46" width="430" height="339" filter="none"></rect><rect fill="none" class="highcharts-plot-border" data-z-index="1" stroke="#cccccc" stroke-width="0" x="10" y="46" width="430" height="339"></rect><g class="highcharts-series-group" data-z-index="3" filter="none"><g class="highcharts-series highcharts-series-0 highcharts-pie-series highcharts-tracker" data-z-index="0.1" opacity="1" transform="translate(10,46) scale(1 1)" filter="none" style="cursor: pointer;" clip-path="none"><path fill="#2caffe" d="M 225.47484656549145 40.50101471143688 A 0.5 0.5 0 0 1 225.9767690108095 40.000916570684566 A 124 124 0 0 1 332.8653803725307 226.0376909423763 A 0.5 0.5 0 0 1 332.1805527897262 226.2194475745199 L 332.1805527897262 226.2194475745199 A 0.5 0.5 0 0 1 331.99953053081674 225.53738698316357 A 123 123 0 0 0 225.972924099432 41.000909178985495 A 0.5 0.5 0 0 1 225.47484656549145 40.50101471143688 Z" class="highcharts-halo highcharts-color-0" data-z-index="-1" fill-opacity="0.25" visibility="hidden"></path><path fill="rgb(44,175,254)" d="M 225.47536311814056 43.03719830863682 A 3 3 0 0 1 228.5491323878813 40.03749441189416 A 124 124 0 0 1 334.12929781571233 223.79695356843246 A 3 3 0 0 1 329.98975367106675 224.94170474937337 L 225.5 164 A 0 0 0 0 1 225.5 164 A 0 0 0 0 0 225.5 164 A 0 0 0 0 1 225.5 164 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-0"></path><path fill="#544fc5" d="M 329.98965537785864 224.94187328115484 A 3 3 0 0 1 331.0314146121939 229.10852885720294 A 124 124 0 0 1 160.43261204663708 269.5567857834188 A 3 3 0 0 1 159.49284491030366 265.3659483108838 L 225.5 164 A 0 0 0 0 1 225.5 164 A 0 0 0 0 0 225.5 164 A 0 0 0 0 1 225.5 164 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-1"></path><path fill="#00e272" d="M 159.4926814169245 265.36584184759863 A 3 3 0 0 1 155.27983086233442 266.20140824018836 A 124 124 0 0 1 110.64184586944299 210.72905337925442 A 3 3 0 0 1 112.35937461733867 206.79250971864462 L 225.5 164 A 0 0 0 0 1 225.5 164 A 0 0 0 0 0 225.5 164 A 0 0 0 0 1 225.5 164 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-2"></path><path fill="#fe6a35" d="M 112.35930559730889 206.79232723370933 A 3 3 0 0 1 108.46655832739073 204.97771992514913 A 124 124 0 0 1 105.49755575837163 132.76839139533678 A 3 3 0 0 1 109.22819412996616 130.6403363368099 L 225.5 164 A 0 0 0 0 1 225.5 164 A 0 0 0 0 0 225.5 164 A 0 0 0 0 1 225.5 164 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-3"></path><path fill="#6b8abc" d="M 109.22824793602653 130.64014880168253 A 3 3 0 0 1 107.19334831530324 126.85789226287986 A 124 124 0 0 1 222.37720139139745 40.039328297842346 A 3 3 0 0 1 225.4527527417932 43.037205026931545 L 225.5 164 A 0 0 0 0 1 225.5 164 A 0 0 0 0 0 225.5 164 A 0 0 0 0 1 225.5 164 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-4"></path></g><g class="highcharts-markers highcharts-series-0 highcharts-pie-series" data-z-index="0.1" opacity="1" transform="translate(10,46) scale(1 1)" clip-path="none"></g></g><text x="225" text-anchor="middle" class="highcharts-title" data-z-index="4" style="font-size: 1.2em; color: rgb(51, 51, 51); font-weight: bold; fill: rgb(51, 51, 51);" y="25">Total sold by country $</text><text x="225" text-anchor="middle" class="highcharts-subtitle" data-z-index="4" style="color: rgb(102, 102, 102); font-size: 0.8em; fill: rgb(102, 102, 102);" y="45"></text><text x="10" text-anchor="start" class="highcharts-caption" data-z-index="4" style="color: rgb(102, 102, 102); font-size: 0.8em; fill: rgb(102, 102, 102);" y="397"></text><g class="highcharts-data-labels highcharts-series-0 highcharts-pie-series highcharts-tracker" data-z-index="6" opacity="1" transform="translate(10,46) scale(1 1)" style="cursor: pointer;"><path fill="none" class="highcharts-data-label-connector highcharts-color-0" stroke-width="1" stroke="#2caffe" d="M 364.0486941525453 87.31397591379564 L 359.0486941525453 87.31397591379564 L 338.23591064825257 99.26504460255477 L 333.03271477217936 102.25281177474454" opacity="1"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-1" stroke-width="1" stroke="#544fc5" d="M 266.0307863785008 313.8451307828364 L 261.0307863785007 313.8451307828364 L 255.4935209688642 290.49264286862814 L 254.1092046164551 284.65452089007607" opacity="1"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-2" stroke-width="1" stroke="#00e272" d="M 100.52568675984953 260.55135505291605 L 105.52568675984949 260.55135505291605 L 124.22298232974312 245.50439062908498 L 128.8973062222165 241.7426495231272" opacity="1"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-3" stroke-width="1" stroke="#fe6a35" d="M 66.62983606524267 170.3223927978973 L 71.62983606524185 170.3223927978973 L 95.6096018732568 169.3370848293938 L 101.60454332526034 169.09075783726794" opacity="1"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-4" stroke-width="1" stroke="#6b8abc" d="M 127.81796430756853 41.01203205229034 L 132.8179643075685 41.01203205229034 L 147.26191792197343 60.17898809608924 L 150.87290632557466 64.97072710703897" opacity="1"></path><g class="highcharts-label highcharts-data-label highcharts-data-label-color-0" data-z-index="1" filter="none" style="cursor: pointer;" transform="translate(369,76)" opacity="1"><text x="5" data-z-index="1" y="16" style="color: rgb(0, 0, 0); font-size: 0.7em; font-weight: bold; fill: rgb(0, 0, 0);"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round">33.4% <tspan style="font-weight: bold;">US</tspan><tspan x="5" dy="0">​</tspan></tspan>33.4% <tspan style="font-weight: bold;">US</tspan></text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-1" data-z-index="1" filter="none" style="cursor: pointer;" transform="translate(271,303)" opacity="1"><text x="5" data-z-index="1" y="16" style="color: rgb(0, 0, 0); font-size: 0.7em; font-weight: bold; fill: rgb(0, 0, 0);"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round">25.8% <tspan style="font-weight: bold;">IN</tspan><tspan x="5" dy="0">​</tspan></tspan>25.8% <tspan style="font-weight: bold;">IN</tspan></text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-2" data-z-index="1" filter="none" style="cursor: pointer;" transform="translate(32,250)" opacity="1"><text x="5" data-z-index="1" y="16" style="color: rgb(0, 0, 0); font-size: 0.7em; font-weight: bold; fill: rgb(0, 0, 0);"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round">10.1% <tspan style="font-weight: bold;">KW</tspan><tspan x="5" dy="0">​</tspan></tspan>10.1% <tspan style="font-weight: bold;">KW</tspan></text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-3" data-z-index="1" filter="none" style="cursor: pointer;" transform="translate(0,159)" opacity="1"><text x="5" data-z-index="1" y="16" style="color: rgb(0, 0, 0); font-size: 0.7em; font-weight: bold; fill: rgb(0, 0, 0);"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round">10.2% <tspan style="font-weight: bold;">EG</tspan><tspan x="5" dy="0">​</tspan></tspan>10.2% <tspan style="font-weight: bold;">EG</tspan></text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-4" data-z-index="1" filter="none" style="cursor: pointer;" transform="translate(62,30)" opacity="1"><text x="5" data-z-index="1" y="16" style="color: rgb(0, 0, 0); font-size: 0.7em; font-weight: bold; fill: rgb(0, 0, 0);"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round">20.6% <tspan style="font-weight: bold;">DE</tspan><tspan x="5" dy="0">​</tspan></tspan>20.6% <tspan style="font-weight: bold;">DE</tspan></text></g></g><g class="highcharts-legend highcharts-no-tooltip" data-z-index="7" visibility="hidden"><rect fill="none" class="highcharts-legend-box" rx="0" ry="0" stroke="#999999" stroke-width="1" filter="url(#highcharts-drop-shadow-0)" x="0.5" y="0.5" width="8" height="8"></rect><g data-z-index="1"><g></g></g></g><text x="440" class="highcharts-credits" text-anchor="end" data-z-index="8" y="395" style="cursor: pointer; color: rgb(153, 153, 153); font-size: 0.6em; fill: rgb(153, 153, 153);">Highcharts.com</text><g class="highcharts-label highcharts-tooltip highcharts-color-0" data-z-index="8" filter="url(#highcharts-drop-shadow-0)" style="cursor: default; pointer-events: none;" transform="translate(205,196)" opacity="0" visibility="hidden"><path fill="#ffffff" class="highcharts-label-box highcharts-tooltip-box" d="M 3 0 L 240 0 A 3 3 0 0 1 243 3 L 243 40 A 3 3 0 0 1 240 43 L 3 43 A 3 3 0 0 1 0 40 L 0 3 A 3 3 0 0 1 3 0 Z" stroke-width="0" stroke="#2caffe"></path><text x="8" data-z-index="1" y="18" style="color: rgb(51, 51, 51); font-size: 0.8em; fill: rgb(51, 51, 51);"><tspan style="font-size: 0.8em;">US</tspan><tspan class="highcharts-br" dy="15" x="8">​</tspan><tspan style="color: rgb(44, 175, 254); fill: rgb(44, 175, 254);">●</tspan> Total Value sold by country $: <tspan style="font-weight: bold;">148 707</tspan><tspan class="highcharts-br">​</tspan></text></g></svg></div></div></div>
+
+
+                    <div data-report-table=""><div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select form-select-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label></div><div id="DataTables_Table_0_processing" class="dataTables_processing card" role="status" style="display: none;"><div><div></div><div></div><div></div><div></div></div></div><table class="table table-xxs datatable-basic table-bordered table-striped table-hover dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 604px;"> <thead><tr><th data-id="client__country" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Country: activate to sort column ascending" style="width: 136px;">Country</th><th data-id="sum__value" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Total Value sold by country $: activate to sort column ascending" style="width: 389px;">Total Value sold by country $</th></tr> </thead><tbody><tr class="odd"><td>US</td><td>148707</td></tr><tr class="even"><td>IN</td><td>114720</td></tr><tr class="odd"><td>KW</td><td>44815</td></tr><tr class="even"><td>EG</td><td>45379</td></tr><tr class="odd"><td>DE</td><td>91500</td></tr></tbody><tfoot><tr class="tr-totals active"><th colspan="1" style="text-align:left" rowspan="1">Total</th><th data-id="sum__value&quot;" rowspan="1" colspan="1">445121</th></tr></tfoot></table><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 5 of 5 entries</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a aria-controls="DataTables_Table_0" aria-disabled="true" aria-role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" aria-role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="DataTables_Table_0_next"><a aria-controls="DataTables_Table_0" aria-disabled="true" aria-role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li></ul></div></div></div>
+
+
+
+        </div>
+    </div>
+</div>
+        </div>
+
             <!-- AREA CHART -->
             <div class="card card-primary">
               <div class="card-header">
@@ -122,7 +228,7 @@
             <!-- DONUT CHART -->
             <div class="card card-danger">
               <div class="card-header">
-                <h3 class="card-title">Donut Chart</h3>
+                <h3 class="card-title">Pie Chart</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -134,7 +240,7 @@
                 </div>
               </div>
               <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 319px;" width="319" height="250" class="chartjs-render-monitor"></canvas>
+                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 449px;" width="449" height="250" class="chartjs-render-monitor"></canvas>
               </div>
               <!-- /.card-body -->
             </div>
@@ -164,74 +270,9 @@
           </div>
           <!-- /.col (LEFT) -->
           <div class="col-md-6">
-            <!-- LINE CHART -->
-            <div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">Line Chart</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                  <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 319px;" width="319" height="250" class="chartjs-render-monitor"></canvas>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
 
-            <!-- BAR CHART -->
-            <div class="card card-success">
-              <div class="card-header">
-                <h3 class="card-title">Bar Chart</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                  <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 319px;" width="319" height="250" class="chartjs-render-monitor"></canvas>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-            <!-- STACKED BAR CHART -->
-            <div class="card card-success">
-              <div class="card-header">
-                <h3 class="card-title">Stacked Bar Chart</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                  <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 319px;" width="319" height="250" class="chartjs-render-monitor"></canvas>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
 
           </div>
           <!-- /.col (RIGHT) -->
@@ -245,6 +286,11 @@
           </div>
         </div>
     </section>
+
+    <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+      <i class="fas fa-chevron-up"></i>
+    </a>
+
     <!-- /.content -->
   </div>
 {% endblock body %}
